@@ -1,0 +1,32 @@
+name: C/C++ CI
+on: [push, pull_request]
+jobs:
+  build:
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+    runs-on: ${{ matrix.os }}
+    name: "Builds binaries on ${{ matrix.os }}"
+    steps:
+    - uses: actions/checkout@v1
+    - uses: xmake-io/github-action-setup-xmake@v1
+    - name: Update submodules
+      run: |
+        git submodule sync --recursive
+        git submodule update --init --recursive
+    - name: Install packages
+      run: |
+        npm install
+        npm install -g @lcui/cli
+    - name: Build
+      run: |
+        xmake config -y
+        lcui build
+    - name: Package
+      run: xmake pack -y
+    - uses: actions/upload-artifact@master
+      with:
+        name: package (${{ runner.os }})
+        path: build/xpack/*/*

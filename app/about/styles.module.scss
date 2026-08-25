@@ -1,0 +1,57 @@
+$primary-text-color: #202124;
+$secondary-text-color: #5f6368;
+$green: #28a745;
+
+.about {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.item {
+  padding: 10px 20px;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+a.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    background-color: #fafafa;
+  }
+  &:active {
+    background-color: #f8faff;
+  }
+}
+
+.meta {
+  margin-top: 10px;
+
+  text {
+    color: $secondary-text-color;
+    font-size: 12px;
+  }
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  display: inline-block;
+  background-size: contain;
+  background-position: center;
+  background-image: url(./logo.png);
+}
+
+.name {
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}

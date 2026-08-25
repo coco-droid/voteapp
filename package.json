@@ -1,0 +1,31 @@
+{
+  "name": "lcui-quick-start",
+  "version": "0.2.0",
+  "description": "A minimal LCUI application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lcui-dev/lcui-quick-start.git"
+  },
+  "homepage": "https://github.com/lcui-dev/lcui-quick-start",
+  "bugs": {
+    "url": "https://github.com/lcui-dev/lcui-quick-start/issues"
+  },
+  "keywords": [
+    "lcui"
+  ],
+  "author": "liu <lc-soft@live.cn>",
+  "license": "MIT",
+  "devDependencies": {
+    "@lcui/react": "^0.5.0",
+    "@lcui/react-icons": "^1.0.4",
+    "@thedutchcoder/postcss-rem-to-px": "^0.0.2",
+    "@types/react": "^18.2.0",
+    "postcss": "^8.5.23",
+    "react": "^18.2.0",
+    "tailwindcss": "3.4.17"
+  }
+}

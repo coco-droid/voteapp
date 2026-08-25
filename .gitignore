@@ -1,0 +1,16 @@
+dist
+build
+.xmake
+.vscode
+.lcui
+node_modules
+include/config.h
+include/version.h
+*.pdb
+*.exe
+*.dll
+*.log
+*.lib
+*.exp
+*.ilk
+compile_commands.json
