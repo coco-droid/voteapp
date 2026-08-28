@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MINI PROJET" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/MINI PROJET" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/MINI PROJET" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="buffer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_bv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_candid.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_elect.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_interne.h" />
+		<Unit filename="core/core_parti.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_rapp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_util.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_verif.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/core_vote.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="election.h" />
+		<Unit filename="election_core.h" />
+		<Unit filename="ge_BV.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ge_candi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ge_elect.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ge_parti.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ge_votes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rapp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="velectro.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

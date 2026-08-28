@@ -1,0 +1,12 @@
+diff --git a/src/dirent_win32.c b/src/dirent_win32.c
+index b3405c0..938599c 100644
+--- a/src/dirent_win32.c
++++ b/src/dirent_win32.c
+@@ -32,6 +32,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #ifdef _WIN32
++#include <errno.h>
+ #include <windows.h>
+ 
+ #include "yutil/keywords.h"

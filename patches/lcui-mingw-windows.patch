@@ -1,0 +1,140 @@
+diff --git a/lib/css/include/css/common.h b/lib/css/include/css/common.h
+index 27387dee..53ce3f7a 100644
+--- a/lib/css/include/css/common.h
++++ b/lib/css/include/css/common.h
+@@ -32,7 +32,7 @@
+ #endif
+ #endif
+ 
+-#if defined(_WIN32) && !defined(__cplusplus)
++#if defined(_WIN32) && !defined(__cplusplus) && defined(_MSC_VER)
+ #define LIBCSS_INLINE __inline
+ #else
+ #define LIBCSS_INLINE static inline
+diff --git a/lib/pandagl/include/pandagl/common.h b/lib/pandagl/include/pandagl/common.h
+index c7817819..41a414a9 100644
+--- a/lib/pandagl/include/pandagl/common.h
++++ b/lib/pandagl/include/pandagl/common.h
+@@ -32,7 +32,7 @@
+ #endif
+ #endif
+ 
+-#if defined(_WIN32) && !defined(__cplusplus)
++#if defined(_WIN32) && !defined(__cplusplus) && defined(_MSC_VER)
+ #define PD_INLINE __inline
+ #else
+ #define PD_INLINE static inline
+diff --git a/lib/ptk/include/ptk/common.h b/lib/ptk/include/ptk/common.h
+index 5eefc509..fba32008 100644
+--- a/lib/ptk/include/ptk/common.h
++++ b/lib/ptk/include/ptk/common.h
+@@ -32,7 +32,7 @@
+ #endif
+ #endif
+ 
+-#if defined(_WIN32) && !defined(__cplusplus)
++#if defined(_WIN32) && !defined(__cplusplus) && defined(_MSC_VER)
+ #define PTK_INLINE __inline
+ #else
+ #define PTK_INLINE static inline
+diff --git a/lib/ptk/src/windows/uri.c b/lib/ptk/src/windows/uri.c
+index 8ad57f71..ab893878 100644
+--- a/lib/ptk/src/windows/uri.c
++++ b/lib/ptk/src/windows/uri.c
+@@ -15,9 +15,11 @@
+ #include "ptk/app.h"
+ 
+ #if defined(PTK_WIN32) && !defined(WINAPI_PARTITION_APP)
++#ifdef _MSC_VER
+ #pragma warning(disable:4091)
+-#include <Windows.h>
+-#include <ShlObj.h>
++#endif
++#include <windows.h>
++#include <shlobj.h>
+ 
+ int ptk_open_uri(const char *uri)
+ {
+diff --git a/lib/ptk/src/windows/win32_app.c b/lib/ptk/src/windows/win32_app.c
+index 3259310a..4b264d56 100644
+--- a/lib/ptk/src/windows/win32_app.c
++++ b/lib/ptk/src/windows/win32_app.c
+@@ -15,11 +15,18 @@
+ #ifdef PTK_WIN_DESKTOP
+ #pragma comment(lib, "User32")
+ #pragma comment(lib, "Gdi32")
++#include <errno.h>
+ #include <windows.h>
+ #include <yutil.h>
+ #include <pandagl.h>
+ #include <shellscalingapi.h>
+ 
++#ifndef __FUNCTIONW__
++/* __FUNCTIONW__ est une extension MSVC : en C standard __FUNCTION__ n'est
++ * pas une macro, on utilise donc un libelle fixe. */
++#define __FUNCTIONW__ L"win32_app"
++#endif
++
+ #define MIN_WIDTH 320
+ #define MIN_HEIGHT 240
+ #define WIN32_WINDOW_STYLE (WS_OVERLAPPEDWINDOW | WS_MAXIMIZEBOX)
+diff --git a/lib/ptk/xmake.lua b/lib/ptk/xmake.lua
+index e2c8a296..92c9b0ad 100644
+--- a/lib/ptk/xmake.lua
++++ b/lib/ptk/xmake.lua
+@@ -23,7 +23,7 @@ target("libptk")
+     if is_plat("windows") then
+         add_options("enable-touch")
+         add_files("src/windows/*.c")
+-        add_links("Shell32")
++        add_links("shell32")
+     else
+         add_files("src/linux/*.c")
+         add_packages("libx11")
+diff --git a/lib/thread/src/windows.c b/lib/thread/src/windows.c
+index e129622c..952384b9 100644
+--- a/lib/thread/src/windows.c
++++ b/lib/thread/src/windows.c
+@@ -196,6 +196,7 @@ static unsigned __stdcall run_thread(void *arg)
+ int thread_create(thread_t *tid, void (*func)(void *), void *arg)
+ {
+ 	thread_info_t *thread;
++	unsigned int win_tid = 0;
+ 
+ 	if (!thread_manager.active) {
+ 		list_create(&thread_manager.threads);
+@@ -211,7 +212,8 @@ int thread_create(thread_t *tid, void (*func)(void *), void *arg)
+ 	thread->retval = NULL;
+ 	thread->node.data = thread;
+ 	thread->handle = (HANDLE)_beginthreadex(NULL, 0, run_thread, thread, 0,
+-						&thread->tid);
++						&win_tid);
++	thread->tid = win_tid;
+ 	if (thread->handle == 0) {
+ 		*tid = 0;
+ 		return -1;
+diff --git a/lib/ui/include/ui/common.h b/lib/ui/include/ui/common.h
+index a868967d..ff22b6d0 100644
+--- a/lib/ui/include/ui/common.h
++++ b/lib/ui/include/ui/common.h
+@@ -36,7 +36,7 @@
+ #endif
+ #endif
+ 
+-#if defined(_WIN32) && !defined(__cplusplus)
++#if defined(_WIN32) && !defined(__cplusplus) && defined(_MSC_VER)
+ #define LIBUI_INLINE __inline
+ #else
+ #define LIBUI_INLINE static inline
+diff --git a/xmake.lua b/xmake.lua
+index 24dbe9c8..0e421b45 100644
+--- a/xmake.lua
++++ b/xmake.lua
+@@ -1,6 +1,6 @@
+ set_project("lcui")
+ set_version("3.0.0-a")
+-set_warnings("all", "error")
++set_warnings("all")
+ set_policy("package.requires_lock", true)
+ add_rules("mode.debug", "mode.release", "mode.coverage")
+ add_rpathdirs("@loader_path/lib", "@loader_path")

@@ -1,0 +1,122 @@
+# depslib dependency file v1.0
+1786849899 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\ge_bv.c
+	<stdio.h>
+	<stdlib.h>
+	"election.h"
+	<string.h>
+
+1786844384 c:\users\lis-l'aurore.bll\documents\langage c\mini projet\election.h
+	<stdio.h>
+
+1786844369 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\main.c
+	<stdio.h>
+	<stdlib.h>
+	"election.h"
+
+1786849899 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\p_pol.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1786129601 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\buffer.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1786844020 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\ge_elect.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1786844020 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\ge_verification.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"election.h"
+
+1786849899 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\ge_candi.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1786846208 source:c:\users\lis-l'aurore.bll\documents\langage c\mini projet\ge_votes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"election.h"
+
+1786914134 source:c:\users\lis-l'aurore.bll\downloads\mini projet\buffer.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1787179309 c:\users\lis-l'aurore.bll\downloads\mini projet\election.h
+	<stdio.h>
+
+1786914134 source:c:\users\lis-l'aurore.bll\downloads\mini projet\ge_bv.c
+	<stdio.h>
+	<stdlib.h>
+	"election.h"
+	<string.h>
+
+1787196973 source:c:\users\lis-l'aurore.bll\downloads\mini projet\ge_candi.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1786939013 source:c:\users\lis-l'aurore.bll\downloads\mini projet\ge_elect.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1787196973 source:c:\users\lis-l'aurore.bll\downloads\mini projet\ge_verification.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"election.h"
+
+1787162423 source:c:\users\lis-l'aurore.bll\downloads\mini projet\ge_votes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"election.h"
+
+1786844369 source:c:\users\lis-l'aurore.bll\downloads\mini projet\main.c
+	<stdio.h>
+	<stdlib.h>
+	"election.h"
+
+1786849899 source:c:\users\lis-l'aurore.bll\downloads\mini projet\p_pol.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1786938846 source:c:\users\lis-l'aurore.bll\downloads\mini projet\velectro.c
+	<stdio.h>
+	<stdlib.h>
+	"election.h"
+
+1787155889 source:c:\users\lis-l'aurore.bll\downloads\mini projet\ge_parti.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+
+1787260343 source:c:\users\lis-l'aurore.bll\downloads\mini projet\rapp.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"election.h"
+

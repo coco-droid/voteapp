@@ -1,13 +1,20 @@
 #include "main.h"
+#include "backend.h"
 
 int main(int argc, char *argv[])
 {
         app_init();
 
+        // Taille de la fenetre principale
+        ui_widget_resize(ui_root(), 1280, 800);
+
+        // Pointe la couche metier (src/core) vers les fichiers .dat
+        backend_init();
+
         // Get app router and route to the root path "/", This means that
-        // your app will present the user interface in app/page.ts
+        // your app will present the user interface in app/page.tsx
         router_t *router = router_get_by_name("AppRouter");
-        router_location_t *location = router_location_create(NULL, "/");
+        router_location_t *location = router_location_create(NULL, "/candidats");
         router_push(router, location);
         router_location_destroy(location);
 

@@ -1,6 +1,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Les widgets LCUI utilisent content-box par defaut : sans cette regle,
+ * un element w-full avec du padding depasse de son parent. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;

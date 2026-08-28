@@ -1,9 +1,14 @@
 dist
 build
+win
+linux
+tools
 .xmake
 .vscode
 .lcui
 node_modules
+vendor.node_modules
+src/obj
 include/config.h
 include/version.h
 *.pdb
@@ -14,3 +19,4 @@ include/version.h
 *.exp
 *.ilk
 compile_commands.json
+src/bin
