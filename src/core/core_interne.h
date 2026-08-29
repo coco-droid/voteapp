@@ -38,4 +38,19 @@ int core_remplacer_enreg(const char *nom_fichier, size_t taille_enreg,
                          core_predicat correspond, const void *cle,
                          const void *nouvel);
 
+/* Supprime le premier enregistrement correspondant au predicat (reecriture
+ * complete du fichier sans l'enregistrement).
+ * Retourne 1 si supprime, 0 si introuvable, EL_ERR_* sinon. */
+int core_supprimer_enreg(const char *nom_fichier, size_t taille_enreg,
+                         core_predicat correspond, const void *cle);
+
+/* Calcule l'identifiant auto-incremente suivant : plus grand suffixe
+ * numerique + 1 parmi les ids commencant par `prefixe` (insensible a la
+ * casse), zero-complete a `largeur` chiffres. `offset_id` est la position
+ * du champ id dans l'enregistrement, `taille_id` sa taille en octets. */
+int core_prochain_id(const char *nom_fichier, size_t taille_enreg,
+                     size_t offset_id, size_t taille_id,
+                     const char *prefixe, int largeur,
+                     char *out, size_t out_len);
+
 #endif /* CORE_INTERNE_H */

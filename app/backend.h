@@ -39,6 +39,19 @@ void backend_init(void);
  * Les espaces de debut/fin sont supprimes. */
 void backend_input_text(ui_widget_t *input, char *out, size_t len);
 
+/* Remplit un widget textinput avec un texte UTF-8 (mode edition). */
+void backend_input_set_text(ui_widget_t *input, const char *txt);
+
+/* Passe un champ textinput en lecture seule (ou l'inverse) via
+ * pointer-events:none + opacite reduite. NB : on n'utilise PAS
+ * ui_widget_set_disabled() : la transition d'etat "disabled" fait perdre
+ * le texte affecte au textinput dans LCUI. */
+void backend_input_readonly(ui_widget_t *input, int lecture_seule);
+
+/* Cree un petit bouton d'action de ligne de table ("Modifier"/"Supprimer").
+ * danger != 0 => texte rouge (suppression). */
+ui_widget_t *backend_action_btn(const char *txt, int danger);
+
 /* Affiche un message dans un widget text, colore selon is_error. */
 void backend_message(ui_widget_t *w, const char *msg, int is_error);
 

@@ -87,6 +87,7 @@ module.exports = {
     "w-full", "flex-1", "border-b", "border-outline-variant",
     "px-4", "py-3", "px-6", "py-4", "py-2", "px-3", "px-2", "py-1",
     "mb-1", "mb-2", "mb-3", "mt-1", "mt-2", "ml-2", "mr-2", "mx-1",
+    "mr-1", "ml-1",
     "text-body-md", "text-body-sm", "text-label-sm", "text-label-md",
     "text-headline-sm", "text-headline-md", "text-headline-lg",
     "text-on-surface", "text-secondary", "text-on-surface-variant",

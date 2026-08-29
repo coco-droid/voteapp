@@ -20,6 +20,7 @@
 #ifdef _WIN32
 #include <string.h>
 #define strcasecmp _stricmp
+#define strncasecmp _strnicmp
 #else
 #include <strings.h>
 #endif
@@ -48,6 +49,21 @@ void core_obtenir_date(char *date_out);
 /* Extrait le departement (texte apres la derniere virgule de l'adresse) */
 void core_extraire_departement(const char *adresse, char *dept_out, size_t taille);
 
+/* ---------- Validateurs de champs (1 = valide, 0 = invalide) ---------- */
+int core_est_nombre(const char *s);     /* non vide, chiffres uniquement  */
+int core_date_valide(const char *s);    /* format JJ/MM/AAAA, date reelle */
+int core_date_passee(const char *s);    /* date valide et avant aujourd'hui */
+int core_email_valide(const char *s);   /* vide tolere, sinon x@y.z       */
+int core_tel_valide(const char *s);     /* vide tolere, sinon 7 a 14 chiffres (+ - . espace) */
+
+/* ---------- Identifiants auto-incrementes ---------- */
+/* Scannent le fichier correspondant et ecrivent l'identifiant suivant
+ * (plus grand suffixe numerique + 1). Formats : PP-01, BV-01, CA-001, VO-01. */
+int core_parti_prochain_id(char *out, size_t len);
+int core_bv_prochain_id(char *out, size_t len);
+int core_candidat_prochain_id(char *out, size_t len);
+int core_vote_prochain_id(char *out, size_t len);
+
 /* ---------- Verifications (1 = existe, 0 = non) ---------- */
 int core_existe_NINU(const char *ninu, char *bv_out /* optionnel, >= 15 octets */);
 int core_existe_BV(const char *id_bv);
@@ -60,6 +76,7 @@ int core_ninu_a_deja_vote(const char *ninu);
 /* ---------- Partis politiques ---------- */
 int core_parti_ajouter(const partie_politic *p, char *err, size_t err_len);
 int core_parti_modifier(const partie_politic *p, char *err, size_t err_len);
+int core_parti_supprimer(const char *id, char *err, size_t err_len);
 int core_parti_obtenir(const char *id, partie_politic *out); /* 1 = trouve */
 /* Liste complete : *out est alloue par malloc, a liberer avec free() */
 int core_parti_liste(partie_politic **out, int *count);
@@ -67,24 +84,29 @@ int core_parti_liste(partie_politic **out, int *count);
 /* ---------- Bureaux de vote ---------- */
 int core_bv_ajouter(const bureau_vote *bv, char *err, size_t err_len);
 int core_bv_modifier(const bureau_vote *bv, char *err, size_t err_len);
+int core_bv_supprimer(const char *id, char *err, size_t err_len);
 int core_bv_obtenir(const char *id, bureau_vote *out);
 int core_bv_liste(bureau_vote **out, int *count);
 
 /* ---------- Electeurs ---------- */
 int core_electeur_ajouter(const electeurs *e, char *err, size_t err_len);
 int core_electeur_modifier(const electeurs *e, char *err, size_t err_len);
+int core_electeur_supprimer(const char *ninu, char *err, size_t err_len);
 int core_electeur_obtenir(const char *ninu, electeurs *out);
 int core_electeur_liste(electeurs **out, int *count);
 
 /* ---------- Candidats ---------- */
 int core_candidat_ajouter(const candidats *c, char *err, size_t err_len);
 int core_candidat_modifier(const candidats *c, char *err, size_t err_len);
+int core_candidat_supprimer(const char *id, char *err, size_t err_len);
 int core_candidat_obtenir(const char *id, candidats *out);
 int core_candidat_liste(candidats **out, int *count);
 
 /* ---------- Votes ---------- */
 /* Remplit automatiquement Date_vote (date du jour) et BV (depuis le NINU).
- * id_candid = "0" => vote blanc. */
+ * Si Id_vote est vide, il est genere automatiquement (VO-XX).
+ * id_candid = "0" => vote blanc.
+ * Les votes ne sont ni modifiables ni supprimables (integrite du scrutin). */
 int core_vote_ajouter(votes *v, char *err, size_t err_len);
 int core_vote_liste(votes **out, int *count);
 

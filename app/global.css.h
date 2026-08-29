@@ -19,6 +19,9 @@ static const char *css_str_global = "\
 .mb-6 {\
   margin-bottom: 24px;\
 }\
+.ml-1 {\
+  margin-left: 4px;\
+}\
 .ml-2 {\
   margin-left: 8px;\
 }\

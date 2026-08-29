@@ -70,6 +70,39 @@ void backend_input_text(ui_widget_t *input, char *out, size_t len)
         }
 }
 
+void backend_input_set_text(ui_widget_t *input, const char *txt)
+{
+        if (input == NULL) {
+                return;
+        }
+        ui_textinput_set_text(input, txt != NULL ? txt : "");
+}
+
+void backend_input_readonly(ui_widget_t *input, int lecture_seule)
+{
+        if (input == NULL) {
+                return;
+        }
+        ui_widget_set_style_string(input, "pointer-events",
+                                   lecture_seule ? "none" : "auto");
+        ui_widget_set_style_string(input, "opacity",
+                                   lecture_seule ? "0.55" : "1");
+}
+
+ui_widget_t *backend_action_btn(const char *txt, int danger)
+{
+        ui_widget_t *btn = ui_create_widget("button");
+        ui_widget_t *t;
+
+        ui_widget_add_class(btn, "border border-outline-variant rounded "
+                                 "px-2 py-1 mr-1");
+        t = backend_text(danger ? "text-label-sm text-error font-medium"
+                                : "text-label-sm text-primary font-medium",
+                         txt);
+        ui_widget_append(btn, t);
+        return btn;
+}
+
 void backend_message(ui_widget_t *w, const char *msg, int is_error)
 {
         if (w == NULL) {

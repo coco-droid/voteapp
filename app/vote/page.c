@@ -22,7 +22,10 @@ static const char *CLASSE_LIGNE_SEL =
         "flex flex-row items-center justify-between w-full "
         "border-primary border-2 rounded-lg px-4 py-3 mb-2 bg-primary-fixed";
 
-/* Clic sur une ligne candidat (lie a chaque ligne a sa creation) */
+/* Clic sur une ligne candidat (lie a chaque ligne a sa creation).
+ * ATTENTION : le 3e parametre `arg` du handler est NULL pour les evenements
+ * d'interface (dispatch par ui_widget_emit_event(..., NULL)) — la page est
+ * transmise via le `data` de ui_widget_on(), lue ici dans e->data. */
 static void candidat_click(ui_widget_t *w, ui_event_t *e, void *arg);
 
 /* (Re)construit la liste cliquable des candidats + option vote blanc. */
@@ -92,8 +95,7 @@ static void vote_verifier_click(ui_widget_t *w, ui_event_t *e, void *arg)
         if (!core_electeur_obtenir(ninu, &elec)) {
                 backend_message(that->base.refs.verif_msg,
                                 "NINU introuvable dans le registre.", 1);
-                ui_widget_set_text(that->base.refs.electeur_nom,
-                                   "En attente de NINU...");
+                ui_widget_set_text(that->base.refs.electeur_nom, "—");
                 ui_widget_set_text(that->base.refs.electeur_bv, "—");
                 return;
         }
@@ -128,8 +130,7 @@ static void vote_annuler_click(ui_widget_t *w, ui_event_t *e, void *arg)
         that->id_candid_sel[0] = '\0';
         that->ligne_sel = NULL;
         ui_textinput_clear_text(that->base.refs.ninu);
-        ui_widget_set_text(that->base.refs.electeur_nom,
-                           "En attente de NINU...");
+        ui_widget_set_text(that->base.refs.electeur_nom, "—");
         ui_widget_set_text(that->base.refs.electeur_bv, "—");
         ui_widget_set_text(that->base.refs.verif_msg, "");
         ui_widget_set_text(that->base.refs.vote_msg, "");
@@ -160,8 +161,8 @@ static void vote_valider_click(ui_widget_t *w, ui_event_t *e, void *arg)
         memset(&v, 0, sizeof(v));
         strcpy(v.NINU, that->ninu);
         strcpy(v.id_candid, that->id_candid_sel);
-        /* Id_vote, Date_vote et BV sont remplis par le core */
-        snprintf(v.Id_vote, sizeof(v.Id_vote), "V-%s", that->ninu);
+        /* Id_vote (auto-increment VO-XX), Date_vote (aujourd'hui) et BV
+         * (depuis le NINU) sont remplis automatiquement par le core */
 
         rc = core_vote_ajouter(&v, err, sizeof(err));
         if (rc != EL_OK) {
@@ -177,8 +178,7 @@ static void vote_valider_click(ui_widget_t *w, ui_event_t *e, void *arg)
         that->id_candid_sel[0] = '\0';
         that->ligne_sel = NULL;
         ui_textinput_clear_text(that->base.refs.ninu);
-        ui_widget_set_text(that->base.refs.electeur_nom,
-                           "En attente de NINU...");
+        ui_widget_set_text(that->base.refs.electeur_nom, "—");
         ui_widget_set_text(that->base.refs.electeur_bv, "—");
         ui_widget_set_text(that->base.refs.verif_msg, "");
         vote_liste_candidats(e->data);
@@ -187,11 +187,11 @@ static void vote_valider_click(ui_widget_t *w, ui_event_t *e, void *arg)
 /* Clic sur une ligne candidat (lie dynamiquement a l'init) */
 static void candidat_click(ui_widget_t *w, ui_event_t *e, void *arg)
 {
-        vote_page_t *that = ui_widget_get_data(arg, vote_page_proto);
+        vote_page_t *that = ui_widget_get_data(e->data, vote_page_proto);
         const char *id = ui_widget_get_attr(w, "data-candid");
-        (void)e;
+        (void)arg;
 
-        if (id == NULL) {
+        if (that == NULL || id == NULL) {
                 return;
         }
         if (that->ligne_sel != NULL) {

@@ -31,17 +31,17 @@ export default function PartisPage() {
         </Button>
       </div>
 
-      {/* Formulaire d'ajout (repliable) */}
+      {/* Formulaire d'ajout / modification (repliable) */}
       <div $ref="form_panel" className="hidden bg-surface-container-lowest border border-outline-variant rounded-xl p-6 mb-4 flex-col">
         <div className="flex flex-row justify-between items-center mb-4">
-          <Text className="text-headline-sm text-on-surface">Nouveau parti politique</Text>
+          <Text $ref="form_title" className="text-headline-sm text-on-surface">Nouveau parti politique</Text>
           <Button className="px-2 py-1" onClick="partis_toggle_form">
             <Dismiss fontSize={14} />
           </Button>
         </div>
         <div className="flex flex-row flex-wrap mb-1">
           <div className="flex-1 flex flex-col mr-2 mb-2" style={{ minWidth: "130px" }}>
-            <Text className="text-body-sm text-secondary mb-1">Identifiant (ex: PP-99) *</Text>
+            <Text className="text-body-sm text-secondary mb-1">Identifiant (automatique)</Text>
             <TextInput $ref="f_id" placeholder="PP-XX" />
           </div>
           <div className="flex-1 flex flex-col mr-2 mb-2" style={{ minWidth: "160px" }}>
@@ -71,6 +71,9 @@ export default function PartisPage() {
           <Text className="text-body-sm text-secondary mb-1">Adresse (No Rue, Rue, Département)</Text>
           <TextInput $ref="f_adresse" placeholder="12, Rue Capois, Ouest" />
         </div>
+        <Text className="text-label-sm text-secondary mb-3">
+          La date d'inscription est enregistrée automatiquement (date du jour).
+        </Text>
         <div className="flex flex-row items-center">
           <Button
             className="bg-primary rounded-lg px-4 py-2 mr-2"
@@ -82,6 +85,23 @@ export default function PartisPage() {
         </div>
       </div>
 
+      {/* Barre de confirmation de suppression */}
+      <div $ref="confirm_panel" className="hidden bg-error-container border border-outline-variant rounded-xl p-4 mb-4 flex-row items-center">
+        <Text $ref="confirm_msg" className="text-body-md text-on-surface flex-1" />
+        <Button
+          className="bg-primary rounded-lg px-4 py-2 mr-2"
+          onClick="partis_del_confirm"
+        >
+          <Text className="text-label-md text-on-primary font-semibold">Confirmer</Text>
+        </Button>
+        <Button
+          className="bg-surface border border-outline-variant rounded-lg px-4 py-2"
+          onClick="partis_del_cancel"
+        >
+          <Text className="text-label-md text-secondary font-semibold">Annuler</Text>
+        </Button>
+      </div>
+
       {/* Table des partis */}
       <div className="bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col">
         <div className="flex flex-row items-center w-full border-b border-outline-variant px-4 py-3 bg-surface-container-low">
@@ -91,10 +111,12 @@ export default function PartisPage() {
           <Text className="text-label-sm text-secondary font-semibold w-32">Responsable</Text>
           <Text className="text-label-sm text-secondary font-semibold w-40">Téléphone</Text>
           <Text className="text-label-sm text-secondary font-semibold w-24 text-center">Statut</Text>
+          <Text className="text-label-sm text-secondary font-semibold w-36 text-center">Actions</Text>
         </div>
         <div $ref="table_body" className="flex flex-col" />
         <div className="flex flex-row justify-between items-center px-4 py-3">
           <Text $ref="table_count" className="text-body-sm text-secondary" />
+          <Text $ref="table_msg" className="text-body-sm" />
         </div>
       </div>
     </div>
